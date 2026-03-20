@@ -3,25 +3,46 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-primary: #09090b;
+  --bg-secondary: #111113;
+  --accent: #f97316;
+  --accent-light: #fb923c;
+  --text-primary: #fafafa;
+  --text-muted: #71717a;
+  --border: #27272a;
+  --card-bg: #18181b;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* Badge / pill elements must never clip descenders.
+   Tailwind's overflow-hidden on layout wrappers overrides this via specificity. */
+.badge-pill {
+  overflow: visible;
+  padding-block: 0.25rem;
+}
+
+/* Custom fonts setup for tailwind integration done via css variables */
+.font-syne {
+  font-family: var(--font-syne), sans-serif;
+}
+
+.font-dm-sans {
+  font-family: var(--font-dm-sans), sans-serif;
 }

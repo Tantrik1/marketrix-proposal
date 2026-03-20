@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  marketrix-proposal:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: marketrix-proposal
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+    environment:
+      - NODE_ENV=production
+      - PORT=9000
+      - HOSTNAME=0.0.0.0
+      # Resend email API — set your key here or in a .env file
+      - RESEND_API_KEY=${RESEND_API_KEY}
+      - FROM_EMAIL=${FROM_EMAIL:-info@marketrixnepal.com.np}
+      - TO_EMAIL_1=${TO_EMAIL_1:-info@marketrixnepal.com.np}
+      - TO_EMAIL_2=${TO_EMAIL_2:-info@tantriktech.com.np}
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:9000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s

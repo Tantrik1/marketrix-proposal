@@ -8,9 +8,14 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+      animation: {
+        "infinite-scroll": "infinite-scroll 30s linear infinite",
+      },
+      keyframes: {
+        "infinite-scroll": {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-33.333333%)" }, // Since we duplicated logos 3 times
+        },
       },
     },
   },
