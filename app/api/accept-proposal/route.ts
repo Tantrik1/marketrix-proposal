@@ -25,7 +25,7 @@ export async function POST(req: Request) {
     const body: ProposalBody = await req.json();
     const {
       packageName, packagePrice, addons, componentCount,
-      componentPrice, subtotal, discountName, discountAmount, total,
+      componentPrice, discountName, discountAmount, total,
     } = body;
 
     const resend = new Resend(process.env.RESEND_API_KEY);

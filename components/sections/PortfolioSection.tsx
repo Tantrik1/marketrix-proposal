@@ -179,10 +179,10 @@ export default function PortfolioSection() {
               {seoWins.map((win, idx) => (
                 <motion.div
                   key={idx}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{ delay: idx * 0.07 }}
+                  initial={{ y: 28 }}
+                  whileInView={{ y: 0 }}
+                  viewport={{ once: true, amount: 0.1 }}
+                  transition={{ delay: idx * 0.07, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                   className="group bg-[var(--card-bg)] border border-[var(--border)] rounded-2xl overflow-hidden hover:border-orange-500/40 hover:shadow-lg hover:shadow-orange-500/8 transition-all duration-300"
                 >
                   {/* 16:9 image */}
@@ -239,10 +239,10 @@ export default function PortfolioSection() {
               {websites.map((site, idx) => (
                 <motion.div
                   key={idx}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{ delay: idx * 0.08 }}
+                  initial={{ y: 28 }}
+                  whileInView={{ y: 0 }}
+                  viewport={{ once: true, amount: 0.1 }}
+                  transition={{ delay: idx * 0.08, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                   className="group bg-[var(--card-bg)] border border-[var(--border)] rounded-2xl overflow-hidden hover:border-[var(--accent)] hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-300 cursor-pointer"
                   onClick={() => window.open(site.url, "_blank", "noopener,noreferrer")}
                 >

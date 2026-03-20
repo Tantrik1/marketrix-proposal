@@ -6,12 +6,12 @@ import Link from "next/link";
 import { ArrowRight, CheckCircle, TrendingUp, Users, Zap } from "lucide-react";
 
 const included = [
-  "Full Multi-Page Website",
-  "AI-Powered Admin Panel",
-  "SEO Foundation",
-  "Lead Management System",
-  "Interactive Product Demo",
-  "Domain + Hosting (Year 1)",
+  "Multi-Page Site",
+  "Admin Panel",
+  "SEO Ready",
+  "Lead Engine",
+  "Career Management",
+  "Domain + Hosting"
 ];
 
 export default function HeroSection() {
@@ -227,10 +227,10 @@ export default function HeroSection() {
           className="mt-16 pt-10 border-t border-[var(--border)] grid grid-cols-2 sm:grid-cols-4 gap-6 text-center"
         >
           {[
-            { value: "38+", label: "Businesses Built For" },
-            { value: "99%", label: "Avg System Uptime" },
+            { value: "38+", label: "Websites Built" },
+            { value: "99.99%", label: "Avg System Uptime" },
             { value: "4 Weeks", label: "Delivery Timeline" },
-            { value: "Page 1", label: "Google Rankings" },
+            { value: "#1", label: "On Google Rankings" },
           ].map((stat, i) => (
             <div key={i}>
               <div className="text-2xl sm:text-3xl font-bold font-syne text-white mb-1">{stat.value}</div>

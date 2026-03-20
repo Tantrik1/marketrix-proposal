@@ -232,39 +232,6 @@ export default function PricingEstimator() {
         </div>
 
         {/* ── Proposal Banner ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          className="mt-10 mb-12 flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4 rounded-2xl border border-[var(--border)] bg-[var(--card-bg)]"
-        >
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-xl bg-[var(--accent)] flex items-center justify-center text-white font-bold font-syne text-sm shadow-md shadow-orange-500/30 shrink-0">M</div>
-            <div>
-              <p className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider font-bold">From</p>
-              <p className="text-white font-semibold text-sm">Marketrix Nepal</p>
-            </div>
-          </div>
-          <div className="hidden sm:flex items-center gap-2 text-[var(--text-muted)]">
-            <div className="h-px w-12 bg-[var(--border)]" />
-            <ArrowRight size={16} className="text-[var(--accent)]" />
-            <div className="h-px w-12 bg-[var(--border)]" />
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border)] flex items-center justify-center text-white font-bold font-syne text-sm shrink-0">R</div>
-            <div>
-              <p className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider font-bold">To</p>
-              <p className="text-white font-semibold text-sm">Real HR Soft</p>
-            </div>
-          </div>
-          <div className="hidden sm:block h-8 w-px bg-[var(--border)]" />
-          <div className="text-center sm:text-right">
-            <p className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider font-bold">Proposal Date</p>
-            <p className="text-white font-semibold text-sm">March 2025</p>
-          </div>
-        </motion.div>
-
         {/* ── Main Grid ── */}
         <div className="grid lg:grid-cols-[1fr_380px] xl:grid-cols-[1fr_420px] gap-8 xl:gap-12 items-start">
 

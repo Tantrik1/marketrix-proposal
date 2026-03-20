@@ -89,21 +89,9 @@ export default function FeaturesSection() {
           </motion.p>
         </div>
 
-        {/* Desktop Tabs / Mobile Select */}
-        <div className="flex flex-col md:flex-row gap-2 justify-center mb-12">
-          {/* Mobile Select (visible only on small screens) */}
-          <select
-            className="md:hidden bg-[var(--card-bg)] border border-[var(--border)] text-white px-4 py-3 rounded-lg focus:outline-none focus:border-[var(--accent)]"
-            value={activeTab}
-            onChange={(e) => setActiveTab(e.target.value as "website" | "advanced" | "admin")}
-          >
-            <option value="website">Main Website</option>
-            <option value="advanced">Advanced Features</option>
-            <option value="admin">Admin Panel</option>
-          </select>
-
-          {/* Desktop Tabs */}
-          <div className="hidden md:flex bg-[var(--card-bg)] p-1 rounded-xl border border-[var(--border)] w-max mx-auto">
+        {/* Tabs — horizontal scroll on mobile, centered row on desktop */}
+        <div className="flex justify-center mb-12">
+          <div className="flex bg-[var(--card-bg)] p-1 rounded-xl border border-[var(--border)] overflow-x-auto scrollbar-none w-full max-w-max mx-auto">
             {([
               { id: "website", label: "Main Website", icon: MonitorSmartphone },
               { id: "advanced", label: "Advanced Features", icon: Sparkles },
@@ -113,13 +101,13 @@ export default function FeaturesSection() {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={cn(
-                  "flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all duration-300",
+                  "flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-medium transition-all duration-300 whitespace-nowrap shrink-0 text-sm sm:text-base",
                   activeTab === tab.id
                     ? "bg-[var(--accent)] text-white shadow-md"
                     : "text-[var(--text-muted)] hover:text-white"
                 )}
               >
-                <tab.icon size={18} />
+                <tab.icon size={16} className="shrink-0" />
                 {tab.label}
               </button>
             ))}

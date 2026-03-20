@@ -116,10 +116,10 @@ export default function WorkWithYou() {
           {pillars.map((p, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.45, delay: idx * 0.07 }}
+              initial={{ y: 28 }}
+              whileInView={{ y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.5, delay: idx * 0.07, ease: [0.22, 1, 0.36, 1] }}
               className={`group flex flex-col gap-4 p-6 rounded-2xl border bg-gradient-to-br ${p.color} hover:-translate-y-1 hover:shadow-lg transition-all duration-300`}
             >
               {/* Icon + tag row */}
@@ -147,10 +147,10 @@ export default function WorkWithYou() {
 
         {/* Bottom CTA strip */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ delay: 0.2, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-6 px-8 py-6 rounded-2xl border border-[var(--border)] bg-[var(--card-bg)]"
         >
           <div>
