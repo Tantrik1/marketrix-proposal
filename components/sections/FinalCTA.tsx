@@ -150,7 +150,7 @@ export default function FinalCTA() {
     <AnimatePresence>
       {showModal && <FeatureRequestModal onClose={() => setShowModal(false)} />}
     </AnimatePresence>
-    <section className="relative py-32 overflow-hidden bg-[var(--bg-primary)]">
+    <section className="relative pt-32 overflow-hidden bg-[var(--bg-primary)]">
       {/* Background effects */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-orange-500/8 rounded-full blur-[100px]" />
@@ -237,7 +237,7 @@ export default function FinalCTA() {
             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
           </Link>
           <a
-            href="mailto:info@marketrix.com.np?subject=Let%27s%20Talk%20%E2%80%93%20Real%20HR%20Soft%20Proposal&body=Hi%20Marketrix%20Nepal%2C%0A%0AWe%27d%20like%20to%20schedule%20a%20call%20to%20discuss%20the%20proposal.%0A%0ARegards%2C%0AReal%20HR%20Soft"
+            href="mailto:info@marketrixnepal.com.np?subject=Let%27s%20Talk%20%E2%80%93%20Real%20HR%20Soft%20Proposal&body=Hi%20Marketrix%20Nepal%2C%0A%0AWe%27d%20like%20to%20schedule%20a%20call%20to%20discuss%20the%20proposal.%0A%0ARegards%2C%0AReal%20HR%20Soft"
             className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-transparent border border-[var(--border)] hover:border-[var(--accent)]/50 text-white font-semibold text-base rounded-xl transition-all duration-200 hover:-translate-y-0.5 w-full sm:w-auto"
           >
             <Phone size={16} />
@@ -266,28 +266,6 @@ export default function FinalCTA() {
               {point.text}
             </div>
           ))}
-        </motion.div>
-
-        {/* Bottom divider + contact */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          className="border-t border-[var(--border)] pt-10 text-center"
-        >
-          <p className="text-sm text-[var(--text-muted)] mb-3">
-            Prefer email? Reach us directly at
-          </p>
-          <a
-            href="mailto:info@marketrix.com.np"
-            className="text-[var(--accent)] hover:text-[var(--accent-light)] font-semibold text-base transition-colors"
-          >
-            info@marketrix.com.np
-          </a>
-          <p className="text-xs text-[var(--text-muted)] mt-3">
-            We reply within 24 hours · Based in Nepal · Serving clients globally
-          </p>
         </motion.div>
       </div>
     </section>

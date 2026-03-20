@@ -230,15 +230,6 @@ export default function ProposalAccepted() {
               </div>
             ))}
 
-            {/* Email notice */}
-            <div className="p-4 bg-[var(--bg-secondary)] border border-[var(--border)] rounded-xl">
-              <div className="flex items-center gap-2 mb-2">
-                <Mail size={14} className="text-[var(--accent)] shrink-0" />
-                <p className="text-white text-sm font-semibold">Confirmation email sent to</p>
-              </div>
-              <p className="text-xs text-[var(--text-muted)] font-mono">info@marketrixnepal.com.np</p>
-              <p className="text-xs text-[var(--text-muted)] font-mono">info@tantriktech.com.np</p>
-            </div>
           </motion.div>
         </div>
 

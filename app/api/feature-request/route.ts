@@ -25,7 +25,7 @@ export async function POST(req: Request) {
     const data = await resend.emails.send({
       from: process.env.FROM_EMAIL || "info@tantriktech.com.np",
       to: [
-        process.env.TO_EMAIL_1 || "info@marketrix.com.np",
+        process.env.TO_EMAIL_1 || "info@marketrixnepal.com.np",
         process.env.TO_EMAIL_2 || "info@tantriktech.com.np",
       ],
       subject: "Feature Request — Real HR Soft Client",
