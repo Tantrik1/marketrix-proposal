@@ -10,7 +10,8 @@
       "Read(//etc/nginx/**)",
       "Bash(python3 -m json.tool)",
       "Bash(docker inspect:*)",
-      "Bash(docker exec:*)"
+      "Bash(docker exec:*)",
+      "Bash(git pull:*)"
     ]
   }
 }
