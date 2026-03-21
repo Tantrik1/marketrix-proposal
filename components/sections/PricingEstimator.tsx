@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Info, Check, Plus, Minus, Zap, Shield, Star,
   Globe, Bot, BarChart2, Layers, Link2, SearchCheck, Monitor, ArrowRight,
-  Sparkles, Loader2, X, Receipt, ChevronRight, ChevronDown, Tag
+  Sparkles, Loader2, X, Receipt, ChevronRight, ChevronDown, Tag, Lock
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -40,7 +40,7 @@ const ADDONS = [
     price: 35000,
     type: "highlight",
     icon: <Monitor size={16} />,
-    tooltip: "A live, immersive demo of your HR software — animations, 3D previews & real interactions that convert visitors.",
+    tooltip: "Let your visitors experience Real HR Soft before they even sign up. They can click through real features, explore the interface, and see exactly what they're getting — no login required. It's not a brochure, it's a test drive. Businesses that show their product convert 3× more than those that just describe it.",
     note: "Most requested for SaaS",
   },
   {
@@ -50,7 +50,7 @@ const ADDONS = [
     isYearly: true,
     type: "ai",
     icon: <Bot size={16} />,
-    tooltip: "24/7 automated lead qualification tailored to your data.",
+    tooltip: "Your website never sleeps — and neither does this chatbot. It greets visitors, answers their questions, and figures out who's genuinely interested, all automatically. By the time your team shows up in the morning, the chatbot has already done the first round of sales for you. Trained on your own business data, so every response feels on-brand and accurate.",
   },
   {
     id: "ai_leads",
@@ -58,7 +58,7 @@ const ADDONS = [
     price: 20000,
     type: "ai",
     icon: <Sparkles size={16} />,
-    tooltip: "Auto-categorizes and tracks potential customers via AI.",
+    tooltip: "Not every visitor is ready to buy — and chasing cold leads wastes time. This system uses AI to automatically score, sort, and tag every incoming lead by how interested they actually are. Your sales team sees a clean, prioritised list so they always know exactly who to reach out to first and why.",
   },
   {
     id: "product_page",
@@ -66,7 +66,7 @@ const ADDONS = [
     price: 10000,
     type: "core",
     icon: <Layers size={16} />,
-    tooltip: "Add, edit, and manage products from your admin panel.",
+    tooltip: "Launch a new product, update pricing, or swap out images — all from your admin panel in under a minute. No developer calls, no delays. Your product catalogue stays as current as your business, and every change goes live instantly on your website.",
   },
   {
     id: "service_page",
@@ -74,7 +74,7 @@ const ADDONS = [
     price: 15000,
     type: "core",
     icon: <Globe size={16} />,
-    tooltip: "Manage services, pricing packages, and details natively.",
+    tooltip: "Your services change — your website should keep up. Add new packages, adjust pricing, rewrite descriptions, and reorganise your offerings anytime you want, straight from your dashboard. No code, no waiting, no middleman. What you update is what your clients see.",
   },
   {
     id: "advanced_seo",
@@ -82,7 +82,7 @@ const ADDONS = [
     price: 15000,
     type: "marketing",
     icon: <SearchCheck size={16} />,
-    tooltip: "Deep on-page optimizations, structured data, advanced keyword targeting.",
+    tooltip: "Most businesses set up a website and hope Google notices. Advanced SEO makes sure it does. We go deep — keyword research, structured data markup, technical fixes, and content signals that put Real HR Soft in front of people actively searching for HR software in Nepal. The goal: page 1, not page 5.",
   },
   {
     id: "conversion_tracking",
@@ -90,7 +90,7 @@ const ADDONS = [
     price: 10000,
     type: "marketing",
     icon: <BarChart2 size={16} />,
-    tooltip: "Google Analytics, Tag Manager, and Facebook Pixel properly configured.",
+    tooltip: "If you don't track it, you can't improve it. We properly set up Google Analytics, Tag Manager, and Facebook Pixel so you can see exactly where your visitors come from, which pages they visit, and what makes them convert. Real data means smarter decisions — and more money spent on what actually works.",
   },
   {
     id: "crm_integration",
@@ -98,7 +98,7 @@ const ADDONS = [
     price: 25000,
     type: "marketing",
     icon: <Link2 size={16} />,
-    tooltip: "Connect your website to HubSpot, Salesforce, or Zoho.",
+    tooltip: "Stop manually copying leads from your website into your CRM. We connect Real HR Soft directly to HubSpot, Salesforce, Zoho, or whichever CRM you use — so every form submission, enquiry, and sign-up lands in your pipeline automatically. Less admin, faster follow-ups, zero leads falling through the cracks.",
   },
 ];
 
@@ -119,6 +119,30 @@ export default function PricingEstimator() {
   const [submitting, setSubmitting] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [packageExpanded, setPackageExpanded] = useState(false);
+  const [infoModal, setInfoModal] = useState<{ name: string; description: string } | null>(null);
+  const [pricingViewed, setPricingViewed] = useState(false);
+  const [priceRevealing, setPriceRevealing] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !pricingViewed) {
+          setPriceRevealing(true);
+          setTimeout(() => {
+            setPricingViewed(true);
+            setPriceRevealing(false);
+          }, 800);
+        }
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const addonsPrice = selectedAddons.reduce((acc, id) => {
     return acc + (ADDONS.find((a) => a.id === id)?.price || 0);
@@ -198,7 +222,7 @@ export default function PricingEstimator() {
   const totalItems = selectedAddons.length + (componentCount > 0 ? 1 : 0);
 
   return (
-    <section id="pricing" className="py-24 bg-[var(--bg-primary)] border-b border-[var(--border)] relative overflow-hidden">
+    <section id="pricing" ref={sectionRef} className="py-24 bg-[var(--bg-primary)] border-b border-[var(--border)] relative overflow-hidden">
       {/* Ambient glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-orange-500/6 rounded-full blur-[100px] pointer-events-none" />
 
@@ -361,11 +385,14 @@ export default function PricingEstimator() {
                                     {addon.note}
                                   </span>
                                 )}
-                                <span className="relative flex cursor-help group/tip">
-                                  <Info size={12} className="text-zinc-600 hover:text-zinc-400" />
-                                  <span className="invisible opacity-0 group-hover/tip:visible group-hover/tip:opacity-100 absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-60 p-3 bg-[var(--bg-secondary)] border border-[var(--border)] text-xs text-[var(--text-muted)] rounded-xl shadow-2xl z-30 pointer-events-none transition-all text-left">
-                                    {addon.tooltip}
-                                  </span>
+                                <span
+                                  role="button"
+                                  tabIndex={0}
+                                  onClick={(e) => { e.stopPropagation(); setInfoModal({ name: addon.name, description: addon.tooltip }); }}
+                                  onKeyDown={(e) => { if (e.key === "Enter") { e.stopPropagation(); setInfoModal({ name: addon.name, description: addon.tooltip }); } }}
+                                  className="flex items-center cursor-pointer"
+                                >
+                                  <Info size={12} className="text-zinc-600 hover:text-zinc-400 transition-colors" />
                                 </span>
                               </div>
                               {isHighlight && (
@@ -391,12 +418,13 @@ export default function PricingEstimator() {
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
                         <span className="font-semibold text-sm text-white">3D Animation Component</span>
-                        <span className="relative flex cursor-help group/tip">
-                          <Info size={12} className="text-zinc-600 hover:text-zinc-400" />
-                          <span className="invisible opacity-0 group-hover/tip:visible group-hover/tip:opacity-100 absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-56 p-3 bg-[var(--bg-secondary)] border border-[var(--border)] text-xs text-[var(--text-muted)] rounded-xl shadow-2xl z-30 pointer-events-none transition-all">
-                            Premium 3D web elements — spinning product models, interactive data graphs, immersive hero animations.
-                          </span>
-                        </span>
+                        <button
+                          type="button"
+                          onClick={() => setInfoModal({ name: "3D Animation Component", description: "Make your website impossible to forget. A 3D Animation Component adds a premium interactive element — think a spinning product model, an animated data dashboard, or an immersive hero that reacts to your cursor. These aren't gimmicks; they're the reason visitors stop scrolling, stay longer, and remember your brand. Each component is custom-built for Real HR Soft." })}
+                          className="flex items-center"
+                        >
+                          <Info size={12} className="text-zinc-600 hover:text-zinc-400 transition-colors" />
+                        </button>
                       </div>
                       <p className="text-xs text-[var(--accent)] font-bold mt-1">+ NPR 15,000 per component</p>
                     </div>
@@ -489,6 +517,15 @@ export default function PricingEstimator() {
                               <span className="text-[var(--text-muted)] flex items-center gap-1.5">
                                 <span className="text-[var(--accent)]">{ad?.icon}</span>
                                 {ad?.name}
+                                {ad?.tooltip && (
+                                  <button
+                                    type="button"
+                                    onClick={() => setInfoModal({ name: ad.name, description: ad.tooltip })}
+                                    className="flex items-center"
+                                  >
+                                    <Info size={11} className="text-zinc-600 hover:text-zinc-400 transition-colors" />
+                                  </button>
+                                )}
                               </span>
                               <span className="text-white font-medium">+{ad?.price?.toLocaleString()}</span>
                             </div>
@@ -788,6 +825,19 @@ export default function PricingEstimator() {
                                   </p>
                                 </div>
 
+                                {/* Info */}
+                                {addon.tooltip && (
+                                  <span
+                                    role="button"
+                                    tabIndex={0}
+                                    onClick={(e) => { e.stopPropagation(); setInfoModal({ name: addon.name, description: addon.tooltip }); }}
+                                    onKeyDown={(e) => { if (e.key === "Enter") { e.stopPropagation(); setInfoModal({ name: addon.name, description: addon.tooltip }); } }}
+                                    className="shrink-0 flex items-center p-1 cursor-pointer"
+                                  >
+                                    <Info size={13} className="text-zinc-600 hover:text-zinc-400 transition-colors" />
+                                  </span>
+                                )}
+
                                 {/* Chevron */}
                                 <ChevronRight size={14} className={cn(
                                   "shrink-0 transition-all",
@@ -880,6 +930,15 @@ export default function PricingEstimator() {
                               <span className="text-[var(--text-muted)] flex items-center gap-1.5">
                                 <span className="text-[var(--accent)]">{ad?.icon}</span>
                                 {ad?.name}
+                                {ad?.tooltip && (
+                                  <button
+                                    type="button"
+                                    onClick={() => setInfoModal({ name: ad.name, description: ad.tooltip })}
+                                    className="flex items-center"
+                                  >
+                                    <Info size={11} className="text-zinc-600 hover:text-zinc-400 transition-colors" />
+                                  </button>
+                                )}
                               </span>
                               <span className="text-white font-semibold">+{ad?.price?.toLocaleString()}</span>
                             </div>
@@ -986,55 +1045,171 @@ export default function PricingEstimator() {
           MOBILE STICKY BOTTOM BAR
       ══════════════════════════════════════════════════════════════════ */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-[var(--bg-secondary)]/95 backdrop-blur-md border-t border-[var(--border)] px-4 py-3 shadow-2xl z-40">
-        <div className="flex items-center gap-3">
-          {/* Total display */}
-          <div className="flex-1 min-w-0">
-            <p className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider font-bold">Total</p>
-            <div className="flex items-end gap-1">
-              <span className="text-[11px] text-[var(--text-muted)] mb-0.5">NPR</span>
-              <motion.span
-                key={total}
-                initial={{ opacity: 0.4, y: -4 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ type: "spring", damping: 14 }}
-                className="text-xl font-bold font-syne text-[var(--accent)]"
-              >
-                {total.toLocaleString()}
-              </motion.span>
-              {appliedDiscount && (
-                <motion.span
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="mb-0.5 ml-1 text-[10px] bg-green-500/15 text-green-400 border border-green-500/25 px-1.5 py-0.5 rounded-full font-bold whitespace-nowrap"
+        <AnimatePresence mode="wait">
+          {!pricingViewed ? (
+            /* ── PRE-REVEAL: Mystery state ── */
+            <motion.div
+              key="mystery"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0, y: 8 }}
+              transition={{ duration: 0.3 }}
+              className="flex items-center gap-3"
+            >
+              {/* Locked price */}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-1.5 mb-0.5">
+                  <Lock size={9} className="text-orange-400" />
+                  <p className="text-[10px] text-orange-400 uppercase tracking-wider font-bold">Your Package</p>
+                </div>
+                <div className="flex items-end gap-1.5">
+                  <span className="text-[11px] text-[var(--text-muted)] mb-0.5">NPR</span>
+                  <div className="relative">
+                    {/* Redacted price blocks */}
+                    <div className="flex items-center gap-0.5">
+                      {["w-4", "w-6", "w-5", "w-4", "w-3"].map((w, i) => (
+                        <motion.div
+                          key={i}
+                          animate={{ opacity: [0.3, 0.7, 0.3] }}
+                          transition={{ duration: 1.4, repeat: Infinity, delay: i * 0.15, ease: "easeInOut" }}
+                          className={`h-5 ${w} rounded bg-orange-500/30 border border-orange-500/20`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <motion.p
+                  animate={{ opacity: [0.5, 1, 0.5] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  className="text-[9px] text-[var(--text-muted)] mt-0.5"
                 >
-                  {Math.round(appliedDiscount.rate * 100)}% off
-                </motion.span>
-              )}
-            </div>
-          </div>
+                  Scroll to build & reveal ↓
+                </motion.p>
+              </div>
 
-          {/* See Details button */}
-          <motion.button
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setDrawerOpen(true)}
-            className="relative flex items-center gap-2 px-5 py-3.5 bg-[var(--accent)] hover:bg-[var(--accent-light)] text-white font-bold rounded-xl shadow-lg shadow-orange-500/25 text-sm transition-all duration-200 overflow-hidden group shrink-0"
-          >
-            {/* Shimmer */}
-            <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-600 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 pointer-events-none" />
-            <Receipt size={15} className="shrink-0" />
-            <span>See Details</span>
-            {totalItems > 0 && (
-              <motion.span
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                className="w-5 h-5 rounded-full bg-white text-[var(--accent)] text-[10px] font-black flex items-center justify-center shrink-0"
+              {/* CTA: scroll to pricing */}
+              <motion.button
+                whileTap={{ scale: 0.95 }}
+                animate={{
+                  boxShadow: [
+                    "0 0 16px rgba(249,115,22,0.3)",
+                    "0 0 28px rgba(249,115,22,0.55)",
+                    "0 0 16px rgba(249,115,22,0.3)",
+                  ],
+                }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                onClick={() => {
+                  document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="relative flex items-center gap-2 px-5 py-3.5 bg-[var(--accent)] hover:bg-[var(--accent-light)] text-white font-bold rounded-xl text-sm transition-colors overflow-hidden group shrink-0"
               >
-                {totalItems}
-              </motion.span>
-            )}
-          </motion.button>
-        </div>
+                <span className="absolute inset-0 -translate-x-full group-active:translate-x-full transition-transform duration-500 bg-gradient-to-r from-transparent via-white/15 to-transparent skew-x-12 pointer-events-none" />
+                <Sparkles size={14} className="shrink-0" />
+                <span>Reveal Price</span>
+                <ArrowRight size={14} className="shrink-0 group-hover:translate-x-0.5 transition-transform" />
+              </motion.button>
+            </motion.div>
+          ) : (
+            /* ── POST-REVEAL: Normal state ── */
+            <motion.div
+              key="revealed"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="flex items-center gap-3"
+            >
+              {/* Revealed total */}
+              <div className="flex-1 min-w-0">
+                <p className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider font-bold">Total</p>
+                <div className="flex items-end gap-1">
+                  <span className="text-[11px] text-[var(--text-muted)] mb-0.5">NPR</span>
+                  <motion.span
+                    key={total}
+                    initial={priceRevealing ? { filter: "blur(8px)", opacity: 0 } : { opacity: 0.4, y: -4 }}
+                    animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
+                    transition={{ type: "spring", damping: 14, duration: 0.6 }}
+                    className="text-xl font-bold font-syne text-[var(--accent)]"
+                  >
+                    {total.toLocaleString()}
+                  </motion.span>
+                  {appliedDiscount && (
+                    <motion.span
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="mb-0.5 ml-1 text-[10px] bg-green-500/15 text-green-400 border border-green-500/25 px-1.5 py-0.5 rounded-full font-bold whitespace-nowrap"
+                    >
+                      {Math.round(appliedDiscount.rate * 100)}% off
+                    </motion.span>
+                  )}
+                </div>
+              </div>
+
+              {/* See Details button */}
+              <motion.button
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setDrawerOpen(true)}
+                className="relative flex items-center gap-2 px-5 py-3.5 bg-[var(--accent)] hover:bg-[var(--accent-light)] text-white font-bold rounded-xl shadow-lg shadow-orange-500/25 text-sm transition-all duration-200 overflow-hidden group shrink-0"
+              >
+                <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-600 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 pointer-events-none" />
+                <Receipt size={15} className="shrink-0" />
+                <span>See Details</span>
+                {totalItems > 0 && (
+                  <motion.span
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    className="w-5 h-5 rounded-full bg-white text-[var(--accent)] text-[10px] font-black flex items-center justify-center shrink-0"
+                  >
+                    {totalItems}
+                  </motion.span>
+                )}
+              </motion.button>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
+
+      {/* ── Add-on Info Modal ── */}
+      <AnimatePresence>
+        {infoModal && (
+          <div className="fixed inset-0 z-[80] flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+              onClick={() => setInfoModal(null)}
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 12 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 12 }}
+              transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              className="relative w-full max-w-sm bg-[var(--card-bg)] border border-[var(--border)] rounded-2xl p-6 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setInfoModal(null)}
+                className="absolute top-4 right-4 text-[var(--text-muted)] hover:text-white transition-colors"
+              >
+                <X size={18} />
+              </button>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-9 h-9 rounded-xl bg-orange-500/15 border border-orange-500/25 flex items-center justify-center shrink-0">
+                  <Info size={16} className="text-orange-400" />
+                </div>
+                <h3 className="text-base font-bold font-syne text-white">{infoModal.name}</h3>
+              </div>
+              <p className="text-sm text-[var(--text-muted)] leading-relaxed">{infoModal.description}</p>
+              <button
+                onClick={() => setInfoModal(null)}
+                className="mt-5 w-full py-2.5 bg-[var(--accent)] hover:bg-[var(--accent-light)] text-white font-semibold text-sm rounded-xl transition-colors"
+              >
+                Got it
+              </button>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
