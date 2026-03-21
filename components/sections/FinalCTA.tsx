@@ -188,7 +188,7 @@ export default function FinalCTA() {
           className="text-4xl sm:text-5xl lg:text-6xl font-bold font-syne text-white text-center mb-6 leading-snug"
         >
           Ready to{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600 pb-1 inline-block">
             Dominate
           </span>{" "}
           Your Market?

@@ -95,7 +95,7 @@ export default function WorkWithYou() {
             className="text-4xl md:text-5xl font-bold font-syne text-white mb-4"
           >
             We Work{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600 pb-1 inline-block">
               With You
             </span>
           </motion.h2>
