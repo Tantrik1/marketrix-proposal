@@ -188,7 +188,7 @@ export default function FinalCTA() {
           className="text-4xl sm:text-5xl lg:text-6xl font-bold font-syne text-white text-center mb-6 leading-snug"
         >
           Ready to{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600 pb-1 inline-block">
             Dominate
           </span>{" "}
           Your Market?
@@ -237,7 +237,7 @@ export default function FinalCTA() {
             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
           </Link>
           <a
-            href="mailto:info@marketrixnepal.com.np?subject=Let%27s%20Talk%20%E2%80%93%20Real%20HR%20Soft%20Proposal&body=Hi%20Marketrix%20Nepal%2C%0A%0AWe%27d%20like%20to%20schedule%20a%20call%20to%20discuss%20the%20proposal.%0A%0ARegards%2C%0AReal%20HR%20Soft"
+            href="tel:+9779840175421"
             className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-transparent border border-[var(--border)] hover:border-[var(--accent)]/50 text-white font-semibold text-base rounded-xl transition-all duration-200 hover:-translate-y-0.5 w-full sm:w-auto"
           >
             <Phone size={16} />

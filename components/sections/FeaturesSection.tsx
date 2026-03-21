@@ -632,7 +632,7 @@ export default function FeaturesSection() {
             className="text-4xl md:text-5xl font-bold font-syne text-white mb-4"
           >
             Everything{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">You Get</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600 pb-1 inline-block">You Get</span>
           </motion.h2>
           <motion.p initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.08 }}
             className="text-lg text-[var(--text-muted)] max-w-xl mx-auto leading-relaxed"
@@ -959,7 +959,7 @@ export default function FeaturesSection() {
                     </div>
                     <h3 className="text-2xl md:text-3xl font-bold font-syne text-white mb-4 leading-tight">
                       Let Visitors<br />
-                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600 pb-1 inline-block">
                         Try Before They Buy
                       </span>
                     </h3>

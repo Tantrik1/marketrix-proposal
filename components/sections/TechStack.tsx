@@ -49,7 +49,7 @@ export default function TechStack() {
             className="text-4xl md:text-5xl font-bold font-syne text-white mb-4"
           >
             Built With{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600 pb-1 inline-block">
               Modern Technology
             </span>
           </motion.h2>
