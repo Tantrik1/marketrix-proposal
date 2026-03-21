@@ -5,11 +5,11 @@ import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import {
   MonitorSmartphone, LayoutDashboard, CheckCircle2, FileCheck2, Code2,
-  MessageSquare, PlaySquare, Briefcase, FileText, Settings, Package,
-  Rss, BarChart3, Calendar, SearchCheck, Bot, Globe, ExternalLink,
-  Database, TrendingUp, Send, Shield, ArrowRight, Edit3,
-  ChevronRight, User, PlusCircle, MousePointerClick, Zap,
-  Layers, Sparkles, Star, Activity, Target, Link2, Brain,
+  PlaySquare, Briefcase, FileText, Settings, Package,
+  Rss, BarChart3, Calendar, SearchCheck, Bot, ExternalLink,
+  Database, TrendingUp, Send, Shield, Edit3,
+  User, PlusCircle, MousePointerClick, Zap,
+  Layers, Star, Activity, Target, Link2, Brain,
 } from "lucide-react";
 
 /* ─── Types ─────────────────────────────────────────────────────── */
@@ -895,7 +895,7 @@ export default function FeaturesSection() {
                         ))}
                       </div>
                       <p className="text-[10px] text-[var(--text-muted)] mt-3 text-center">
-                        Your chatbot will be trained on Real HR Soft's data & docs
+                        Your chatbot will be trained on Real HR Soft&apos;s data &amp; docs
                       </p>
                     </div>
                   </div>
